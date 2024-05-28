@@ -9,15 +9,16 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'products';
+    const TABLE = 'products';
+    protected $table = self::TABLE;
 
     protected $fillable = [
         'name',
         'description',
-        'image',
         'buy_price',
         'min_price',
         'finish_date_auction',
-        'is_active'
+        'is_active',
+        'user_id'
     ];
 }
