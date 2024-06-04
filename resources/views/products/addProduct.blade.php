@@ -13,7 +13,7 @@
         </div>
     @endif
 
-    <form action="{{ route('product.upload') }}" method="POST">
+    <form method="POST" action="{{ route('product.upload') }}" enctype="multipart/form-data">
 
         @csrf
         <div class="mb-3">
@@ -32,7 +32,7 @@
             <input type="datetime-local" name="date_time" value="{{\Illuminate\Support\Carbon::now()}}">
         </div>
         <div class="mb-3">
-            <input type="file" multiple name="image" class="btn">
+            <input type="file" name="images" >
         </div>
         <button type="submit" class="btn btn-primary">Create Auction</button>
     </form>
