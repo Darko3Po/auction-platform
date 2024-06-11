@@ -11,7 +11,6 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
-use League\CommonMark\Extension\CommonMark\Node\Inline\Image;
 
 class ProductController extends Controller
 {
@@ -47,11 +46,16 @@ class ProductController extends Controller
             return redirect()->back()->withErrors(['error' => 'The date and time must be in the future.']);
         }
 
-        // Name and save image
-        $images = $request->file('images');
-        $fileName = rand(0, 100).time().'.webp';
-        $path = Storage::disk('public')->path('product_images')."/$fileName.webp";
-        ImageManager::gd()->read($images)->save($path);
+        if ($request->hasFile('images'))
+        {
+            // Name and save image
+            $images = $request->file('images');
+            $fileName = rand(0, 100).time().'.webp';
+            $path = Storage::disk('public')->path('product_images')."/$fileName";
+            ImageManager::gd()->read($images)->save($path);
+        }
+
+
 
 
         Product::create([
