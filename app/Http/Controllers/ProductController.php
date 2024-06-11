@@ -73,8 +73,6 @@ class ProductController extends Controller
             'user_id' => Auth::id()
         ]);
 
-        $lastProductId = Product::latest()->first()->id;
-
         return redirect()->route('product.all');
     }
 
@@ -82,9 +80,11 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $product)
     {
-        //
+        $singleProduct = Product::find($product);
+
+        return view('products.single-products', compact('singleProduct'));
     }
 
     /**

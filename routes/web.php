@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -27,6 +28,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/all',[ProductController::class,'index'])->name('product.all');
         Route::get('/add',[ProductController::class,'create'])->name('product.add');
         Route::post('/upload',[ProductController::class,'store'])->name('product.upload');
+
+        Route::get('/single/{id}',[ProductController::class,'show'])->name('product.single');
+
+        Route::post('/bid-auction',[AuctionController::class,'bid'])->name('product.bid');
+
 
     });
 
