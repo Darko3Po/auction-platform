@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
+use App\Models\Image;
 use App\Models\ImageProduct;
 use App\Models\Product;
 use App\Models\User;
@@ -55,8 +56,11 @@ class ProductController extends Controller
             ImageManager::gd()->read($images)->save($path);
         }
 
+        Image::create([
+            'name' => $fileName,
+        ]);
 
-
+        $lastSaveImage = Image::latest()->first();
 
         Product::create([
             'name' => $request->get('name'),
@@ -64,16 +68,13 @@ class ProductController extends Controller
             'buy_price' => $request->get('buy_price'),
             'min_price' => $request->get('min_price'),
             'finish_date_auction' => $request->get('date_time'),
+            'image_id' => $lastSaveImage->id,
             'is_active' => true,
-            'user_id' => Auth::id(),
+            'user_id' => Auth::id()
         ]);
 
-        $lastProductId = Product::latest()->first();
+        $lastProductId = Product::latest()->first()->id;
 
-        ImageProduct::create([
-            'image' => $fileName,
-            'product_id' => $lastProductId->id,
-        ]);
         return redirect()->route('product.all');
     }
 
