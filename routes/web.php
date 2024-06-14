@@ -31,8 +31,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/single/{id}',[ProductController::class,'show'])->name('product.single');
 
-        Route::post('/bid-auction',[AuctionController::class,'bid'])->name('product.bid');
-
+        Route::post('/bidding-auction',[AuctionController::class,'bidding'])->name('product.bidding');
+        Route::post('/buy-now-auction',[AuctionController::class,'buyNow'])->name('product.buy.now');
 
     });
 

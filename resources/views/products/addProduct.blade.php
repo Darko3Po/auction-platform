@@ -32,7 +32,7 @@
             <input type="datetime-local" name="date_time" value="{{\Illuminate\Support\Carbon::now()}}">
         </div>
         <div class="mb-3">
-            <input type="file" name="images" >
+            <input type="file" name="images" multiple>
         </div>
         <button type="submit" class="btn btn-primary">Create Auction</button>
     </form>
