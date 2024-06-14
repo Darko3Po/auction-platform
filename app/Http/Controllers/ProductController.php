@@ -49,16 +49,18 @@ class ProductController extends Controller
 
         if ($request->hasFile('images'))
         {
-            // Name and save image
-            $images = $request->file('images');
-            $fileName = rand(0, 100).time().'.webp';
-            $path = Storage::disk('public')->path('product_images')."/$fileName";
-            ImageManager::gd()->read($images)->save($path);
+                // Name and save image
+                $images = $request->file('images');
+                $fileName = rand(0, 100).time().'.webp';
+                $path = Storage::disk('public')->path('product_images')."/$fileName";
+                ImageManager::gd()->read($images)->save($path);
+
+                Image::create([
+                    'name' => $fileName,
+                ]);
         }
 
-        Image::create([
-            'name' => $fileName,
-        ]);
+
 
         $lastSaveImage = Image::latest()->first();
 
