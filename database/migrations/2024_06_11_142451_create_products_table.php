@@ -34,15 +34,6 @@ return new class extends Migration
         });
     }
 
-//'name',
-//'description',
-//'buy_price',
-//'min_price',
-//'finish_date_auction',
-//'image_id',
-//'is_active',
-//'user_id',
-
     /**
      * Reverse the migrations.
      */
