@@ -3,11 +3,7 @@
 
 @section('mainSection')
 
-    <h2>Cart page</h2>
-
-    <form action="#">
-        Info Data
-    </form>
+    <h2>Thank you for your purchase</h2>
 
 
 @endsection

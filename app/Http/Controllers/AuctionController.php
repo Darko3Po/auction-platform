@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuctionController extends Controller
 {
     public function buyNow(Request $request)
     {
-        dd($request->all());
+        $request->validate([
+            'idProduct' => 'required',
+            'buyNowAuction' => 'required',
+        ]);
 
-        return view('products.cart');
+         
+
+        return view('products.thankYou');
     }
 
     public function bidding(Request $request)

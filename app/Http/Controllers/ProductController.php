@@ -38,6 +38,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
 
+
         if ($request->get('buy_price') <= $request->get('min_price'))
         {
             return redirect()->back()->withErrors(['error' => 'Buy now must be high of minimum price.']);
