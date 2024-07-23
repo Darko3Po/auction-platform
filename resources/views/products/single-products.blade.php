@@ -17,7 +17,7 @@
         <button class="btn btn-info" type="submit">My Bid price</button>
     </form>
 
-    <form action="{{ route('product.buy.now') }}" method="POST">
+    <form action="{{ route('product.cart.page') }}" method="POST">
         {{ csrf_field() }}
     <div style="display: flex">
         <input type="hidden" name="idProduct" value="{{ $singleProduct->id }}">

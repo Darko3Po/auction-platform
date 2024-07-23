@@ -32,7 +32,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/single/{id}',[ProductController::class,'show'])->name('product.single');
 
         Route::post('/bidding-auction',[AuctionController::class,'bidding'])->name('product.bidding');
+
+        Route::get('/cart',[AuctionController::class,'cartView']);
+        Route::post('/cart',[AuctionController::class,'addToCart'])->name('product.cart.page');
+
         Route::post('/buy-now-auction',[AuctionController::class,'buyNow'])->name('product.buy.now');
+
 
     });
 
