@@ -21,32 +21,49 @@ class AuctionController extends Controller
 
         $idProduct = $request->get('idProduct');
         $idBuyNowAuction = $request->get('buyNowAuction');
+        $productName = Product::where('id', $idProduct)->get('name')->value('name');
 
-        $request->session()->put([
+        $product = Product::find($idProduct);
+        if(!$product)
+        {
+            return redirect()->back()->with('error','The product has been sold');
+        }
+
+        session()->push('product',[
             'productId' => $idProduct,
-            'buyNowAuction' => $idBuyNowAuction
+            'buyNowAuction' => $idBuyNowAuction,
+            'productName' => $productName,
         ]);
 
-        $productName = Product::where('id', $idProduct)->firstOrFail('name');
-
-
-         return view('products.cart', compact('idProduct','idBuyNowAuction','productName'));
+         return redirect()->route('product.cart.view');
     }
+
     public function cartView()
     {
-        $test = session()->get('productId');
-        dd($test);
+        $cartProducts =  session()->get('product');
+        return view('products.cart', compact('cartProducts'));
     }
 
-
-    public function buyNow(Request $request)
+    public function finishShoping(Request $request)
     {
-       //finish cart page and finish purschase
+         $request->validate([
+            'idProduct' => 'required|exists:products,id',
+            'productName' => 'required|exists:products,name',
+            'buyNowAuction' => 'required',
+            'userName' => 'required',
+            'email' => 'required,exists:users,email',
+            'phone' => 'required',
+            'city' => 'required',
+            'street' => 'required',
+        ]);
 
-
-        return view('products.thankYou', compact('cartItems'));
+        return redirect()->route('products.thank.you');
     }
 
+    public function thankYouPage()
+    {
+        return view('products.thankYou');
+    }
 
     public function bidding(Request $request)
     {
