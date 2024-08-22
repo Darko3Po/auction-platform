@@ -29,41 +29,53 @@ class AuctionController extends Controller
             return redirect()->back()->with('error','The product has been sold');
         }
 
-        session()->push('product',[
+        $productSession = [
             'productId' => $idProduct,
             'buyNowAuction' => $idBuyNowAuction,
             'productName' => $productName,
-        ]);
+        ];
+
+        session()->put('product',$productSession);
+
 
          return redirect()->route('product.cart.view');
     }
 
     public function cartView()
     {
-        $cartProducts =  session()->get('product');
-        return view('products.cart', compact('cartProducts'));
+        $cartProduct =  session()->get('product');
+        return view('products.cart', compact('cartProduct'));
     }
 
     public function finishShoping(Request $request)
     {
-         $request->validate([
-            'idProduct' => 'required|exists:products,id',
-            'productName' => 'required|exists:products,name',
-            'buyNowAuction' => 'required',
+        // TESTS
+        // $sessionProducts = session()->get('product');
+        // dd($sessionProducts);
+        // foreach($sessionProducts as $product){
+        //     foreach($product as $item => $value){
+        //         dd($value);
+        //     }
+        // }
+
+        $request->validate([
+            'productName' => 'required',
+            'buyNowPrice' => 'required',
+            'idProduct' => 'required',
             'userName' => 'required',
-            'email' => 'required,exists:users,email',
+            'email' => 'required',
             'phone' => 'required',
             'city' => 'required',
-            'street' => 'required',
+            'street' => 'required'
         ]);
 
-        return redirect()->route('products.thank.you');
-    }
-
-    public function thankYouPage()
-    {
         return view('products.thankYou');
     }
+
+    // public function thankYouPage()
+    // {
+    //     return view('products.thankYou');
+    // }
 
     public function bidding(Request $request)
     {

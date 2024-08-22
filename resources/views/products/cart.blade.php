@@ -7,14 +7,14 @@
 
     <form action="{{ route('product.finish.shopping') }}" method="POST">
         {{ csrf_field() }}
-        @foreach ($cartProducts as $product )
-            <div class="bg-info container m-4 p-4">
-                <span>Product: {{ $product['productName'] }}</span> |
-                <span>Price: {{ $product['buyNowAuction'] }}</span>
-                <input type="hidden" name="productName" value="{{ $product['productName'] }}">
-                <input type="hidden"  name="buyNowPrice" value="{{ $product['buyNowAuction'] }}">
-            </div>
-        @endforeach
+        @if ($cartProduct !== NULL)
+                <div class="bg-info container m-4 p-4">
+                    <span>Product: {{ $cartProduct['productName'] }}</span> |
+                    <span>Price: {{ $cartProduct['buyNowAuction'] }}</span>
+                    <input type="hidden" name="productName" value="{{ $cartProduct['productName'] }}">
+                    <input type="hidden"  name="buyNowPrice" value="{{ $cartProduct['buyNowAuction'] }}">
+                </div>
+        @endif
        <input type="hidden" name="idProduct" value="{{ session()->get('productId') }}">
         <label> Name </label>
         <input type="text" name="userName" value="{{ Auth::user()->name }}"><br>
