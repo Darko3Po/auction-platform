@@ -33,10 +33,11 @@ Route::middleware('auth')->group(function () {
 
         Route::post('/bidding-auction',[AuctionController::class,'bidding'])->name('product.bidding');
 
-        Route::get('/cart',[AuctionController::class,'cartView']);
-        Route::post('/cart',[AuctionController::class,'addToCart'])->name('product.cart.page');
+        Route::get('/cart',[AuctionController::class,'cartView'])->name('product.cart.view');
+        Route::post('/add-to-cart',[AuctionController::class,'addToCart'])->name('product.cart.page');
 
-        Route::post('/buy-now-auction',[AuctionController::class,'buyNow'])->name('product.buy.now');
+        Route::get('/thank-you',[AuctionController::class,'thankYouPage'])->name('product.thank.you');
+        Route::post('/finish-shopping',[AuctionController::class,'finishShoping'])->name('product.finish.shopping');
 
 
     });

@@ -11,6 +11,11 @@
 
     <form action="{{ route('product.bidding') }}" method="POST">
         {{ csrf_field() }}
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
     <h5>Minimum price is:    {{ $singleProduct->min_price }} </h5>
         <input type="hidden" name="idProduct" value="{{ $singleProduct->id }}">
         <input required type="number" name="bidPriceAuction" placeholder="Bid price">
