@@ -5,7 +5,7 @@
 
     <h2>Cart page</h2>
 
-    <form action="{{ route('product.finish.shopping') }}" method="POST">
+    <form method="POST" action="{{ route('product.finish.shopping') }}">
         {{ csrf_field() }}
         @if ($cartProduct !== NULL)
                 <div class="bg-info container m-4 p-4">

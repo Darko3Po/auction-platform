@@ -49,19 +49,14 @@ class AuctionController extends Controller
 
     public function finishShoping(Request $request)
     {
-        // TESTS
-        // $sessionProducts = session()->get('product');
-        // dd($sessionProducts);
-        // foreach($sessionProducts as $product){
-        //     foreach($product as $item => $value){
-        //         dd($value);
-        //     }
-        // }
 
+        $sessionProducts = session()->get('product');
+        if($sessionProducts['productName'] == NULL || $sessionProducts['buyNowAuction'] == NULL || $sessionProducts['productId'] == NULL)
+        {
+           return redirect()->back()->with('message', 'Product dosent in cart');
+
+        }
         $request->validate([
-            'productName' => 'required',
-            'buyNowPrice' => 'required',
-            'idProduct' => 'required',
             'userName' => 'required',
             'email' => 'required',
             'phone' => 'required',
@@ -69,13 +64,15 @@ class AuctionController extends Controller
             'street' => 'required'
         ]);
 
+        //LOGIka za save
+
         return view('products.thankYou');
     }
 
-    // public function thankYouPage()
-    // {
-    //     return view('products.thankYou');
-    // }
+    public function thankYouPage()
+    {
+        return view('products.thankYou');
+    }
 
     public function bidding(Request $request)
     {
