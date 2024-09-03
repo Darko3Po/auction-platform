@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrdersRequest;
 use App\Models\Orders;
 use App\Models\Product;
 use App\Models\User;
@@ -48,7 +49,7 @@ class AuctionController extends Controller
         return view('products.cart', compact('cartProduct'));
     }
 
-    public function finishShoping(Request $request)
+    public function finishShoping(OrdersRequest $request)
     {
 
         $sessionProducts = session()->get('product');
@@ -57,16 +58,6 @@ class AuctionController extends Controller
            return redirect()->back()->with('message', 'Product dosent in cart');
 
         }
-
-        $request->validate([
-            'userName' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'city' => 'required',
-            'street' => 'required'
-        ]);
-
-
 
        $checkIsActiveProduct = Product::findOrFail($sessionProducts['productId']);
         if ($checkIsActiveProduct['is_active'] !=  1) {
