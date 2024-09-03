@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bids', function (Blueprint $table) {
+        Schema::create('biddings', function (Blueprint $table) {
             $table->id();
-            $table->float('bid');
-            $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('bid_price');
             $table->timestamps();
 
             $table->foreign('product_id')
-                ->references('id')
-                ->on(\App\Models\Product::TABLE);
+            ->references('id')
+            ->on(\App\Models\Product::TABLE);
 
             $table->foreign('user_id')
                 ->references('id')
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bids');
+        Schema::dropIfExists('biddings');
     }
 };

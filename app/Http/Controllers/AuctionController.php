@@ -47,7 +47,6 @@ class AuctionController extends Controller
 
     public function finishShoping(OrdersRequest $request)
     {
-
         $sessionProducts = session()->get('product');
         if($sessionProducts['productName'] == NULL || $sessionProducts['buyNowAuction'] == NULL || $sessionProducts['productId'] == NULL)
         {
@@ -78,6 +77,8 @@ class AuctionController extends Controller
     {
         return view('products.thankYou');
     }
+
+
 
     public function bidding(Request $request)
     {
