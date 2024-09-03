@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Orders;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
@@ -56,6 +57,7 @@ class AuctionController extends Controller
            return redirect()->back()->with('message', 'Product dosent in cart');
 
         }
+
         $request->validate([
             'userName' => 'required',
             'email' => 'required',
@@ -64,7 +66,23 @@ class AuctionController extends Controller
             'street' => 'required'
         ]);
 
-        //LOGIka za save
+
+
+       $checkIsActiveProduct = Product::findOrFail($sessionProducts['productId']);
+        if ($checkIsActiveProduct['is_active'] !=  1) {
+            return redirect()->back()->with('message','The product has been sold');
+        }
+        // Update products table -> product has been sold
+       $checkIsActiveProduct->is_active = 0;
+       $checkIsActiveProduct->save();
+
+       $setTypeProductPrice =settype($sessionProducts['buyNowAuction'], 'integer');
+
+        $order = new Orders();
+        $order->user_id = Auth::id();
+        $order->product_id =  $sessionProducts['productId'];
+        $order->price = $setTypeProductPrice;
+        $order->save();
 
         return view('products.thankYou');
     }
