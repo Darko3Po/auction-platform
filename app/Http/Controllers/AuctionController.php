@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CartRequest;
 use App\Http\Requests\OrdersRequest;
 use App\Models\Orders;
 use App\Models\Product;
@@ -14,13 +15,8 @@ use Symfony\Component\HttpFoundation\Session\Session as SessionSession;
 
 class AuctionController extends Controller
 {
-    public function addToCart(Request $request)
+    public function addToCart(CartRequest $request)
     {
-        $request->validate([
-            'idProduct' => 'required|exists:products,id',
-            'buyNowAuction' => 'required',
-        ]);
-
         $idProduct = $request->get('idProduct');
         $idBuyNowAuction = $request->get('buyNowAuction');
         $productName = Product::where('id', $idProduct)->get('name')->value('name');
