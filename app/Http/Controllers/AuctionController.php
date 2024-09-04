@@ -83,10 +83,6 @@ class AuctionController extends Controller
 
     public function bidding(Request $request)
     {
-        $request->validate([
-            'idProduct' => 'required',
-            'bidPriceAuction' => 'required',
-        ]);
 
         $product = Product::find($request['idProduct']);
 
