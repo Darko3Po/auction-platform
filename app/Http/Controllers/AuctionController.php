@@ -87,7 +87,7 @@ class AuctionController extends Controller
         $product = Product::find($request['idProduct']);
 
         if ($request->bidPriceAuction < $product->min_price) {
-           return redirect()->back()->with('message', 'The offered price cannot be less than the minimum');
+           return redirect()->back()->with('error', 'The offered price cannot be less than the minimum');
         }
 
         $bid = new Bidding();
