@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CartRequest;
 use App\Http\Requests\OrdersRequest;
+use App\Models\Bidding;
 use App\Models\Orders;
 use App\Models\Product;
 use App\Models\User;
@@ -82,9 +83,25 @@ class AuctionController extends Controller
 
     public function bidding(Request $request)
     {
-        dd($request->all());
+        $request->validate([
+            'idProduct' => 'required',
+            'bidPriceAuction' => 'required',
+        ]);
 
-        return view('products.cart');
+        $product = Product::find($request['idProduct']);
+
+        if ($request->bidPriceAuction < $product->min_price) {
+           return redirect()->back()->with('message', 'The offered price cannot be less than the minimum');
+        }
+
+        $bid = new Bidding();
+        $bid->user_id = Auth::id();
+        $bid->product_id = $product->id;
+        $bid->bid_price = $request->bidPriceAuction;
+        $bid->save();
+
+
+        return view('products.thankYou');
     }
 
 }

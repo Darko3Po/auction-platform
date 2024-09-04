@@ -9,7 +9,7 @@ class Bidding extends Model
 {
     use HasFactory;
 
-    const TABLE = 'biddongs';
+    const TABLE = 'biddings';
     protected $table = self::TABLE;
 
     protected $fillable = [
