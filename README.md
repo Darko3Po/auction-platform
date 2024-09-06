@@ -4,8 +4,7 @@
 
 ### AUTHENTICATION:
 
-- For authentication I used Jason Web Tokens.
-- JWT is saved in local storage and sent on request where nescessary.
+- Authentication system
 
 ### USERS:
 
